@@ -12,16 +12,29 @@ This script automates the installation of Docker and NVIDIA Container Toolkit on
 
 ## Quick Installation
 
-Choose one of the following methods to install:
+For quick installation, you can run the following command:
 
-Using curl:
 ```bash
 curl -sSL https://raw.githubusercontent.com/Zillion-Network/scripts/refs/heads/main/docker-nvidia/install-docker-nvidia.sh | bash
 ```
 
-Using wget:
+## Manual Installation
+
+If you prefer to examine the script before running it, you can:
+
+1. Download the script:
 ```bash
-wget -qO- https://raw.githubusercontent.com/Zillion-Network/scripts/refs/heads/main/docker-nvidia/install-docker-nvidia.sh | bash
+curl -O https://raw.githubusercontent.com/Zillion-Network/scripts/refs/heads/main/docker-nvidia/install-docker-nvidia.sh
+```
+
+2. Make it executable:
+```bash
+chmod +x install-docker-nvidia.sh
+```
+
+3. Run the script:
+```bash
+sudo ./install-docker-nvidia.sh
 ```
 
 ## Prerequisites
@@ -30,7 +43,6 @@ wget -qO- https://raw.githubusercontent.com/Zillion-Network/scripts/refs/heads/m
 - Root access or sudo privileges
 - Working internet connection
 - NVIDIA GPU and drivers installed (for NVIDIA Container Toolkit)
-- Either curl or wget installed (for automatic installation)
 
 ## What Does the Script Do?
 
@@ -58,7 +70,6 @@ If you encounter any issues:
 2. Check your internet connection
 3. Verify that NVIDIA drivers are properly installed
 4. Check system logs for detailed error messages
-5. If one download method fails, try the alternative method (curl vs wget)
 
 ## Support
 
