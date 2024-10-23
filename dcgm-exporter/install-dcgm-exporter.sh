@@ -39,10 +39,10 @@ if ! dpkg -l | grep -q datacenter-gpu-manager; then
     echo "Installing NVIDIA DCGM..."
     
     # Add NVIDIA repository key
-    curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004-keyring.gpg | sudo apt-key add -
+    curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-archive-keyring.gpg | sudo apt-key add -
     
     # Add NVIDIA repository
-    echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /" | \
+    echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/ /" | \
         sudo tee /etc/apt/sources.list.d/cuda-compute-repo.list
     
     # Update package lists
