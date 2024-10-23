@@ -56,9 +56,9 @@ main() {
     echo "Installing Docker..."
     install_docker
     
-    # Add NVIDIA GPG key
+    # Add NVIDIA GPG key (with force overwrite)
     echo "Adding NVIDIA GPG key..."
-    curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+    curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor --yes -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
     
     # Add NVIDIA repository
     echo "Adding NVIDIA repository..."
