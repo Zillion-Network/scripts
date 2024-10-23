@@ -5,6 +5,12 @@ set -e
 
 echo "Starting NCCL Tests installation..."
 
+if ! grep -q "export PATH=/usr/local/cuda/bin:" ~/.bashrc; then
+    echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}' >> ~/.bashrc
+    echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
+fi
+source ~/.bashrc
+
 # Install CUDA repository keyring
 echo "Installing CUDA repository keyring..."
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
@@ -31,15 +37,6 @@ sudo apt install openmpi-bin openmpi-doc libopenmpi-dev -y
 # Verify OpenMPI installation
 echo "Verifying OpenMPI installation..."
 mpirun --version
-
-# Add CUDA to PATH
-echo "Configuring CUDA environment..."
-cat > /etc/profile.d/cuda.sh << 'EOF'
-export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-EOF
-
-source /etc/profile.d/cuda.sh
 
 # Verify CUDA installation
 echo "Verifying CUDA installation..."
