@@ -34,15 +34,6 @@ echo "Installing OpenMPI..."
 sudo apt update
 sudo apt install openmpi-bin openmpi-doc libopenmpi-dev -y
 
-# Verify OpenMPI installation
-echo "Verifying OpenMPI installation..."
-mpirun --version
-
-# Verify CUDA installation
-echo "Verifying CUDA installation..."
-nvidia-smi
-nvcc --version
-
 # Clone and build NCCL tests
 echo "Cloning NCCL tests repository..."
 git clone https://github.com/NVIDIA/nccl-tests.git
@@ -71,21 +62,4 @@ echo "Cleaning up..."
 cd ..
 rm -rf nccl-tests
 
-# Print system information
-echo "System information:"
-echo "==================="
-echo "NVIDIA Driver Info:"
-nvidia-smi
-echo "==================="
-echo "CUDA Version:"
-nvcc --version
-echo "==================="
-echo "Held Kernel Packages:"
-apt-mark showhold
-echo "==================="
-echo "Installed CUDA Packages:"
-dpkg -l | grep cuda
-
 echo "NCCL Tests installation completed successfully!"
-echo "The test binaries have been installed to /usr/bin and are ready to use."
-echo "Kernel packages have been held to prevent updates that might break CUDA compatibility."

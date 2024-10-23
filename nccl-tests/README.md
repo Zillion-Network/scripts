@@ -47,11 +47,11 @@ After installation, the following test binaries will be available in `/usr/bin`:
 
 Run a simple all-reduce test:
 ```bash
-mpirun -n 4 all_reduce_perf -b 8 -e 256M -f 2 -g 1
+mpirun -n 8 --allow-run-as-root all_reduce_perf -b 8 -e 256M -f 2 -g 1
 ```
 
 Parameters:
-- `-n 4`: Run with 4 processes
+- `-n 8`: Run with 4 processes
 - `-b 8`: Start with 8 bytes
 - `-e 256M`: End with 256 MB
 - `-f 2`: Increase size by factor of 2
