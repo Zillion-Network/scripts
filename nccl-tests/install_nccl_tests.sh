@@ -53,7 +53,7 @@ make MPI=1 MPI_HOME=/usr/lib/x86_64-linux-gnu/openmpi CUDA_HOME=/usr/local/cuda
 
 # Install built binaries to /usr/bin
 echo "Installing NCCL test binaries to /usr/bin..."
-sudo cp build/* /usr/bin/
+sudo find build/ -type f -executable -exec cp {} /usr/bin/ \;
 
 # Verify installation
 echo "Verifying binary installation..."
