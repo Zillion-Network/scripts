@@ -23,7 +23,7 @@ sudo apt-get update
 
 # Install NCCL dependencies
 echo "Installing NCCL libraries..."
-sudo apt install libnccl2 libnccl-dev -y
+sudo apt install libnccl2 libnccl-dev git -y
 
 # Verify NCCL installation
 echo "Verifying NCCL installation..."
