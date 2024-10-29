@@ -1,73 +1,79 @@
-# Docker and NVIDIA Container Toolkit Installation Script
+# NVIDIA DCGM Exporter Installation Guide
 
-This script automates the installation of Docker and NVIDIA Container Toolkit on Linux systems. It includes automatic region detection to use the appropriate Docker installation source based on your location.
-
-## Features
-
-- Automated Docker installation with region-based source selection
-- NVIDIA Container Toolkit installation and configuration
-- Automatic error handling and validation
-- Root privilege checking
-- Progress tracking with detailed status messages
+This guide provides instructions for installing NVIDIA DCGM (Data Center GPU Manager) and DCGM-exporter on Ubuntu systems.
 
 ## Quick Installation
 
-Choose one of the following methods to install:
+### Using curl
 
-Using curl:
+You can quickly install DCGM-exporter using curl with the following command:
+
 ```bash
-curl -sSL https://raw.githubusercontent.com/Zillion-Network/scripts/refs/heads/main/docker-nvidia/install-docker-nvidia.sh | bash
+curl -sSL https://raw.githubusercontent.com/Zillion-Network/scripts/refs/heads/main/dcgm-exporter/install-dcgm-exporter.sh | sudo bash
 ```
 
-Using wget:
+### Using wget
+
+Alternatively, you can use wget to download and execute the installation script:
+
 ```bash
-wget -qO- https://raw.githubusercontent.com/Zillion-Network/scripts/refs/heads/main/docker-nvidia/install-docker-nvidia.sh | bash
+wget -qO- https://raw.githubusercontent.com/Zillion-Network/scripts/refs/heads/main/dcgm-exporter/install-dcgm-exporter.sh | sudo bash
 ```
 
-## Prerequisites
+## What the Installation Script Does
 
-- Linux-based operating system
-- Root access or sudo privileges
-- Working internet connection
-- NVIDIA GPU and drivers installed (for NVIDIA Container Toolkit)
-- Either curl or wget installed (for automatic installation)
+The installation script performs the following actions:
 
-## What Does the Script Do?
+1. Installs required packages (curl, wget, rsyslog)
+2. Downloads necessary configuration files:
+   - dcgm-exporter binary
+   - default-counters.csv
+   - dcgm-custom-metrics.csv
+   - dcp-metrics-included.csv
+3. Installs NVIDIA DCGM if not already installed:
+   - Adds NVIDIA repository and keys
+   - Installs datacenter-gpu-manager package
+   - Enables and starts nvidia-dcgm service
+4. Sets up DCGM-exporter:
+   - Creates required directories
+   - Copies configuration files
+   - Creates and enables systemd service
 
-The script performs the following operations:
+## Verification
 
-1. Checks for root privileges
-2. Detects server location for optimal Docker installation source
-3. Installs Docker using the appropriate source
-4. Installs NVIDIA Container Toolkit
-5. Configures Docker to work with NVIDIA GPUs
-6. Restarts the Docker daemon to apply changes
+After installation, you can verify the services are running properly:
 
-## Error Handling
+```bash
+# Check DCGM service status
+systemctl status nvidia-dcgm.service
 
-The script includes comprehensive error handling and will:
-- Exit on any error with informative messages
-- Validate root access before proceeding
-- Report the specific line number where any error occurs
+# Check DCGM-exporter service status
+systemctl status dcgm_exporter.service
+```
+
+The DCGM-exporter will be listening on `127.0.0.1:9400` by default.
+
+## Security Considerations
+
+- The installation script requires root privileges (sudo access)
+- The script downloads files from GitHub; ensure you trust the source
+- Consider checking the script's signature or hash if provided
+- The exporter is configured to listen only on localhost (127.0.0.1) by default
 
 ## Troubleshooting
 
 If you encounter any issues:
 
-1. Ensure you have root privileges
-2. Check your internet connection
-3. Verify that NVIDIA drivers are properly installed
-4. Check system logs for detailed error messages
-5. If one download method fails, try the alternative method (curl vs wget)
+1. Check system requirements:
+   - Ubuntu 22.04 or compatible system
+   - NVIDIA GPU with appropriate drivers installed
+   - Sufficient disk space
+   
+2. Verify log files:
+```bash
+# Check DCGM logs
+journalctl -u nvidia-dcgm.service
 
-## Support
-
-If you encounter any issues or need assistance, please open an issue in the GitHub repository.
-
-## License
-
-This script is provided under the MIT License. See the LICENSE file for details.
-
-## Security Note
-
-Always review scripts before executing them with root privileges. While this script is designed to be safe, it's good practice to verify the contents of any script you download from the internet before running it.
+# Check DCGM-exporter logs
+journalctl -u dcgm_exporter.service
+```
