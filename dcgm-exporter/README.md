@@ -9,7 +9,7 @@ This guide provides instructions for installing NVIDIA DCGM (Data Center GPU Man
 You can quickly install DCGM-exporter using curl with the following command:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/Zillion-Network/scripts/refs/heads/main/dcgm-exporter/install-dcgm-exporter.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/Zillion-Network/scripts/refs/heads/main/dcgm-exporter/install-dcgm-exporter.sh | bash
 ```
 
 ### Using wget
@@ -17,14 +17,14 @@ curl -sSL https://raw.githubusercontent.com/Zillion-Network/scripts/refs/heads/m
 Alternatively, you can use wget to download and execute the installation script:
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/Zillion-Network/scripts/refs/heads/main/dcgm-exporter/install-dcgm-exporter.sh | sudo bash
+wget -qO- https://raw.githubusercontent.com/Zillion-Network/scripts/refs/heads/main/dcgm-exporter/install-dcgm-exporter.sh | bash
 ```
 
 ## What the Installation Script Does
 
 The installation script performs the following actions:
 
-1. Installs required packages (curl, wget, rsyslog)
+1. Installs required packages (curl, wget)
 2. Downloads necessary configuration files:
    - dcgm-exporter binary
    - default-counters.csv
